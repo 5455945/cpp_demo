@@ -42,7 +42,7 @@ if (WIN32)
 	#target_link_libraries (${proname01} debug "python35_d.lib") # debug版本link _d.lib会出错
 	#target_link_libraries (${proname02} debug "python35.lib")   # debug版本link 发布版本正常
 	#target_link_libraries (${proname01} optimized "python36.lib")
-	target_link_libraries (${proname01} "python36.lib")
+	target_link_libraries (${proname01} general "python36.lib")
 	
 	# 拷贝文件到生成目录, $(Configuration)是在vs编译时才解析的
     add_custom_command(TARGET ${proname01}
@@ -73,7 +73,7 @@ if (WIN32)
 	#target_link_libraries (${proname01} debug "python35_d.lib") # debug版本link _d.lib会出错
 	#target_link_libraries (${proname02} debug "python35.lib")   # debug版本link 发布版本正常
 	#target_link_libraries (${proname02} optimized "python35.lib")
-	target_link_libraries (${proname02} "python36.lib")
+	target_link_libraries (${proname02} general "python36.lib")
 	
 	# 拷贝文件到生成目录, $(Configuration)是在vs编译时才解析的
     add_custom_command(TARGET ${proname02}
