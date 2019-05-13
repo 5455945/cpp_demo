@@ -1,5 +1,12 @@
 cmake_minimum_required(VERSION 3.0)
 
+set(proname01 "c++11_demo01")
+set(proname02 "c++11_demo02")
+set(proname03 "c++11_demo03")
+set(proname04 "c++11_demo04")
+set(proname05 "c++11_demo05")
+set(proname06 "c++11_demo06")
+set(proname07 "c++11_demo07")
 set(proname08 "c++11_demo08")
 set(proname09 "c++11_demo09")
 set(proname10 "c++11_demo10")
@@ -10,9 +17,9 @@ set(proname14 "c++11_demo14")
 set(proname15 "c++11_demo15")
 set(proname16 "c++11_demo16")
 
-project(${proname08})
+project(${proname03})
 
-add_definitions(/std:c++11)
+#add_definitions(/std:c++11)
 if(CMAKE_VERSION VERSION_LESS 3.1)
   return()
 endif()
@@ -41,6 +48,36 @@ set (src_mains
 
 
 include_directories("pattern")
+
+add_executable(${proname01} 01/01-01.h 01/01-01.cpp 
+01/01-02.h 01/01-02.cpp
+01/01-03.h 01/01-03.cpp
+01/01-04.h 01/range.hpp 01/01-04.cpp
+01/01-05.h 01/01-05.cpp
+01/01-06.h 01/01-06.cpp
+01/01-07.h 01/01-07.cpp
+01/01-main.cpp)
+
+add_executable(${proname02} 02/02-01.h 02/02-01.cpp 02/02-main.cpp)
+
+add_executable(${proname03} 03/03-01.h 03/03-01.cpp 
+03/03-02.h 03/03-02.cpp
+03/03-main.cpp)
+
+add_executable(${proname04} 04/04-01.h 04/04-01.cpp 04/04-main.cpp)
+
+add_executable(${proname05} 05/05-01.h 05/05-01.cpp
+  05/05-02.h 05/05-02.cpp
+  05/05-03.h 05/05-03.cpp
+  05/05-04.h 05/05-04.cpp
+  05/05-05.h 05/05-05.cpp
+  05/05-06.h 05/05-06.cpp
+  05/05-07.h 05/05-07.cpp
+  05/05-main.cpp)
+
+add_executable(${proname06} 06/06-01.h 06/06-01.cpp 06/06-main.cpp)
+
+add_executable(${proname07} 07/07-01.h 07/07-01.cpp 07/07-main.cpp)
 
 add_executable (${proname08} ${incs} ${src_tests} ${src_mains})
 
@@ -114,6 +151,8 @@ if (WIN32)
 	#target_compile_options(--std=c++11)
 	#add_compile_options(--std=c++11)
   endif()
+  # g++ 
+  # SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-elide-constructors")
 endif()
 
 
