@@ -1,64 +1,67 @@
-#define HAS_MEMBER(member)\
-template<typename T, typename... Args>struct has_member_##member\
+#pragma once
+#include "../pattern/NonCopyable.hpp"
+#include <iostream>
+using namespace std;
+
+#define  HAS_MEMBER(member) \
+template<typename T,typename...Args> struct has_member_##member\
 {\
 private:\
-        template<typename U> static auto Check(int) -> decltype(std::declval<U>().member(std::declval<Args>()...), std::true_type()); \
-    template<typename U> static std::false_type Check(...);\
+    template<typename U> static auto Check(int)->decltype(declval<U>().member(declval<Args>()...),true_type());\
+    template<typename U> static false_type Check(...);\
 public:\
-    enum{value = std::is_same<decltype(Check<T>(0)), std::true_type>::value};\
-};\
+    enum{value=is_same<decltype(Check<T>(0)),true_type>::value};\
+};
 
 HAS_MEMBER(Foo)
 HAS_MEMBER(Before)
 HAS_MEMBER(After)
 
-#include <NonCopyable.hpp>
-template<typename Func, typename... Args>
-struct Aspect : NonCopyable
+template<typename Func, typename...Args>
+struct Aspect :NonCopyable
 {
-    Aspect(Func&& f) : m_func(std::forward<Func>(f))
+    Aspect(Func&& f) :m_func(forward<Func>(f))
     {
+    }
+    template<typename T>
+    typename enable_if<has_member_Before<T, Args...>::value && has_member_After<T, Args...>::value > ::type Invoke(Args&&...args, T&& aspect)
+    {
+        aspect.Before(forward<Args>(args)...);  //核心逻辑之前的切面逻辑
+        m_func(forward<Args>(args)...);	        //核心逻辑
+        aspect.After(forward<Args>(args)...);    //核心逻辑之后的切面逻辑
     }
 
     template<typename T>
-    typename std::enable_if<has_member_Before<T, Args...>::value&&has_member_After<T, Args...>::value>::type Invoke(Args&&... args, T&& aspect)
+    typename enable_if<has_member_Before<T, Args...>::value && !has_member_After<T, Args...>::value>::type Invoke(Args&&...args, T&& aspect)
     {
-        aspect.Before(std::forward<Args>(args)...);//核心逻辑之前的切面逻辑
-        m_func(std::forward<Args>(args)...);//核心逻辑
-        aspect.After(std::forward<Args>(args)...);//核心逻辑之后的切面逻辑
+        aspect.Before(forward<Args>(args)...);  //核心逻辑之前的切面逻辑
+        m_func(forward<Args>(args)...);         //核心逻辑
     }
 
     template<typename T>
-    typename std::enable_if<has_member_Before<T, Args...>::value && !has_member_After<T, Args...>::value>::type Invoke(Args&&... args, T&& aspect)
+    typename enable_if<!has_member_Before<T, Args...>::value && has_member_After<T, Args...>::value>::type Invoke(Args&&... args, T&& aspect)
     {
-        aspect.Before(std::forward<Args>(args)...);//核心逻辑之前的切面逻辑
-        m_func(std::forward<Args>(args)...);//核心逻辑
+        m_func(forward<Args>(args)...);        //核心逻辑
+        aspect.After(forward<Args>(args)...);  //核心逻辑之后的切面逻辑
     }
 
-    template<typename T>
-    typename std::enable_if<!has_member_Before<T, Args...>::value&&has_member_After<T, Args...>::value>::type Invoke(Args&&... args, T&& aspect)
+    template<typename Head, typename...Tail>
+    void Invoke(Args&&... args, Head&&headAspect, Tail&&...tailAspect)
     {
-        m_func(std::forward<Args>(args)...);//核心逻辑
-        aspect.After(std::forward<Args>(args)...);//核心逻辑之后的切面逻辑
+        headAspect.Before(forward<Args>(args)...);
+        Invoke(forward<Args>(args)..., forward<Tail>(tailAspect)...);
+        headAspect.After(forward<Args>(args)...);
     }
-
-    template<typename Head, typename... Tail>
-    void Invoke(Args&&... args, Head&&headAspect, Tail&&... tailAspect)
-    {
-        headAspect.Before(std::forward<Args>(args)...);
-        Invoke(std::forward<Args>(args)..., std::forward<Tail>(tailAspect)...);
-        headAspect.After(std::forward<Args>(args)...);
-    }
-
 private:
-    Func m_func; //被织入的函数
+    Func m_func;
 };
-template<typenameT> using identity_t = T;
 
-//AOP的辅助函数，简化调用
+template<typename T> using identity_t = T;
+
+// AOP的辅助函数，简化调用
 template<typename... AP, typename... Args, typename Func>
-void Invoke(Func&&f, Args&&... args)
+void Invoke(Func&& f, Args&&... args)
 {
-    Aspect<Func, Args...> asp(std::forward<Func>(f));
-    asp.Invoke(std::forward<Args>(args)..., identity_t<AP>()...);
+    Aspect<Func, Args...>asp(forward<Func>(f));
+    asp.Invoke(forward<Args>(args)..., identity_t<AP>()...);
 }

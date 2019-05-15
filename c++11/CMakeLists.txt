@@ -84,7 +84,7 @@ add_executable (${proname08} ${incs} ${src_tests} ${src_mains})
 
 add_executable(${proname09} thread_pool/SyncQueue.hpp thread_pool/ThreadPool.hpp thread_pool_test/ThreadPoolTest.cpp)
 
-#add_executable(${proname10} aop/aspect.hpp aop_test/aop_test.cpp)
+add_executable(${proname10} aop/aspect.hpp aop/HelloProxy.h aop_test/aop_test.cpp)
 
 add_executable(${proname11} ioc/ioc.hpp ioc_test/ioc_test.cpp)
 

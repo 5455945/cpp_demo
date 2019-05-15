@@ -239,6 +239,7 @@ public:
 	MyString& operator=(MyString&& rhs) {
 		std::cout << "Move assignment constructor: " << (rhs.m_data != nullptr ? rhs.m_data : "") << std::endl;
 		if (this != &rhs) {
+			delete m_data;
 			m_data = rhs.m_data;
 			m_len = rhs.m_len;
 			rhs.m_data = nullptr;

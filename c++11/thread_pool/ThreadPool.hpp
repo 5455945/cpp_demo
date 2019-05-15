@@ -45,8 +45,10 @@ private:
         for (int i = 0; i <numThreads; ++i)
         {
             m_threadgroup.push_back(std::make_shared<std::thread>(&ThreadPool::RunInThread, this));
+            ////可以理解为下面形式			
+            //m_threadgroup.push_back(std::make_shared<std::thread>(std::bind(&ThreadPool::RunInThread, this)));
         }
-    }    
+    }
 
     void RunInThread()
     {

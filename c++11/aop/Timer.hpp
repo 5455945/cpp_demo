@@ -1,6 +1,6 @@
 #pragma once
 #include<chrono>
-using namespace std;
+//using namespace std;
 using namespace std::chrono;
 
 class Timer
@@ -33,12 +33,12 @@ public:
 		return duration_cast<chrono::nanoseconds>(high_resolution_clock::now() - m_begin).count();
 	}
 
-	////√Î
-	//int64_t elapsed_seconds() const
-	//{
-	//	return duration_cast<chrono::seconds>(high_resolution_clock::now() - m_begin).count();
-	//}
-
+	//√Î
+    int64_t elapsed_seconds() const
+	{
+        return duration_cast<chrono::seconds>(high_resolution_clock::now() - m_begin).count();
+    }
+	
 	//∑÷
 	int64_t elapsed_minutes() const
 	{
