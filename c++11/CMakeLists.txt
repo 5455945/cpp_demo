@@ -17,7 +17,7 @@ set(proname14 "c++11_demo14")
 set(proname15 "c++11_demo15")
 set(proname16 "c++11_demo16")
 
-project(${proname03})
+project("C++11_demo")
 
 #add_definitions(/std:c++11)
 if(CMAKE_VERSION VERSION_LESS 3.1)
@@ -79,7 +79,7 @@ add_executable(${proname06} 06/06-01.h 06/06-01.cpp 06/06-main.cpp)
 
 add_executable(${proname07} 07/07-01.h 07/07-01.cpp 07/07-main.cpp)
 
-add_executable (${proname08} ${incs} ${src_tests} ${src_mains})
+add_executable (${proname08} ${incs} ${src_tests} ${src_mains} pattern_test/Singleton01.hpp )
 
 
 add_executable(${proname09} thread_pool/SyncQueue.hpp thread_pool/ThreadPool.hpp thread_pool_test/ThreadPoolTest.cpp)
@@ -106,9 +106,6 @@ add_executable(${proname13}
 	SmartDB/SmartDB.hpp
 	SmartDB_test/SmartDB_test.cpp
 	)
-	
-# result_of error
-#add_executable(${proname14} linq/LinqCpp.hpp linq_test/linq_test.cpp)
 
 add_executable(${proname15} 
     task_cpp/ParallelAlgrithm.hpp
@@ -118,11 +115,13 @@ add_executable(${proname15}
 	task_cpp/When_All_Any.hpp
 	task_cpp_test/task_cpp_test.cpp
 	)
-	
+
+# result_of error
 set(asio_path "D:/install/lib/boost_1_68_0/msvc141/include/boost-1_68")
 
 include_directories(${asio_path})
 LINK_DIRECTORIES("D:/install/lib/boost_1_68_0/msvc141/lib")
+add_executable(${proname14} linq/LinqCpp.hpp linq_test/linq_test.cpp)
 
 add_executable(${proname16}_client 
     asio_client/asio_client.hpp

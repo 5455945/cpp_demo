@@ -283,35 +283,35 @@ public:
 		return std::includes(begin(), end(), std::begin(other), std::end(other));
 	}
 
-	//分组操作
-	template<typename Fn>
-	multimap<typename std::result_of<Fn(value_type)>::type, value_type> groupby(const Fn& f)  
-	{
-		typedef  decltype(std::declval<Fn>()(std::declval <value_type>())) keytype;
-		multimap<keytype, value_type> mymap;
-		std::for_each(begin(), end(), [&mymap, &f](value_type item)
-		{
-			mymap.insert(make_pair(f(item), item));
-		});
-		return mymap;
-	}
+	////分组操作
+	//template<typename Fn>
+	//multimap<typename std::result_of<Fn(value_type)>::type, value_type> groupby(const Fn& f)  
+	//{
+	//	typedef  decltype(std::declval<Fn>()(std::declval <value_type>())) keytype;
+	//	multimap<keytype, value_type> mymap;
+	//	std::for_each(begin(), end(), [&mymap, &f](value_type item)
+	//	{
+	//		mymap.insert(make_pair(f(item), item));
+	//	});
+	//	return mymap;
+	//}
 
-	//允许指定键和值函数的分组操作
-	template<typename KeyFn, typename ValueFn>
-	multimap<typename std::result_of<KeyFn(value_type)>::type, typename std::result_of<ValueFn(value_type)>::type> groupby(const KeyFn& fnk, const ValueFn& fnv)  
-	{
-		typedef  typename std::result_of<KeyFn(value_type)>::type keytype;
-		typedef  typename std::result_of<ValueFn(value_type)>::type valype;
+	////允许指定键和值函数的分组操作
+	//template<typename KeyFn, typename ValueFn>
+	//multimap<typename std::result_of<KeyFn(value_type)>::type, typename std::result_of<ValueFn(value_type)>::type> groupby(const KeyFn& fnk, const ValueFn& fnv)  
+	//{
+	//	typedef typename std::result_of<KeyFn(value_type)>::type keytype;
+	//	typedef typename std::result_of<ValueFn(value_type)>::type valype;
 
-		multimap<keytype, valype> mymap;
-		std::for_each(begin(), end(), [&mymap, &fnk, &fnv](value_type item)
-		{
-			keytype key = fnk(item);
-			valype val = fnv(item);
-			mymap.insert(make_pair(key, val));
-		});
-		return mymap;
-	}
+	//	multimap<keytype, valype> mymap;
+	//	std::for_each(begin(), end(), [&mymap, &fnk, &fnv](value_type item)
+	//	{
+	//		keytype key = fnk(item);
+	//		valype val = fnv(item);
+	//		mymap.insert(make_pair(key, val));
+	//	});
+	//	return mymap;
+	//}
 
 	//转换操作
 	template<typename T>

@@ -74,7 +74,7 @@ void TestBus() {
     subject.SendReq("");
 }
 
-// test03
+// test03 通过MessageBus将复杂对象关系解耦
 MessageBus g_bus03;
 const std::string Topic03 = "Drive";
 const std::string CallBackTopic = "DriveOk";
@@ -127,11 +127,8 @@ void TestBus03() {
 }
 
 int main() {
-
     TestMsgBus();
     TestBus();
-
     TestBus03();
-
     return 0;
 }

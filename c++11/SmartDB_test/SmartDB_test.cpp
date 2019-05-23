@@ -24,7 +24,7 @@ void TestJson(SmartDB& db, const string& sqlinsert)
     }
     writer.EndArray();
 
-    auto r = db.ExcecuteJson(sqlinsert, buf.GetString());
+    //auto r = db.ExcecuteJson(sqlinsert, buf.GetString());
 }
 
 void TestJsonCpp()
@@ -38,7 +38,7 @@ void TestJsonCpp()
     Timer t;
     JsonCpp jcp;
     jcp.StartArray();
-    for (size_t i = 0; i < 1000000; i++)
+    for (size_t i = 0; i < 10; i++)
     {
         jcp.StartObject();
         jcp.WriteJson("ID", i);
@@ -47,7 +47,7 @@ void TestJsonCpp()
         jcp.WriteJson("V1", i);
         jcp.WriteJson("V2", i);
         jcp.WriteJson("V3", i + 1.25);
-        jcp.WriteJson("V3", "it is a test");
+        jcp.WriteJson("V4", "it is a test");
 
         jcp.EndObject();
     }
@@ -61,14 +61,29 @@ void TestJsonCpp()
     auto p = db.Query("select * from TestInfoTable");
     cout << t.elapsed() << endl;
     t.reset();
+	std::cout << typeid(p).name() << std::endl;
     rapidjson::Document& doc = *p;
-    for (size_t i = 0, len = doc.Size(); i < len; i++)
-    {
-        for (size_t i = 0, size = doc[i].Size(); i < size; ++i)
-        {
+	if (doc.IsArray()) {
+		std::cout << "is array" << std::endl;
+		for (auto& its : doc.GetArray()) {
+			for (auto& it = its.MemberBegin(); it != its.MemberEnd(); ++it) {
+				//std::cout << it->name.GetString() << ": " << it->value.GetType() << std::endl;
+			}
+		}
+	}
+	if (doc.IsObject()) {
+		std::cout << "is object" << std::endl;
+		for (auto& its : doc.GetObject()) {
 
-        }
-    }
+		}
+	}
+    //for (size_t i = 0, len = doc.Size(); i < len; i++)
+    //{
+    //    for (size_t i = 0, size = doc[i].Size(); i < size; ++i)
+    //    {
+
+    //    }
+    //}
     cout << t.elapsed() << endl;
     cout << "size: " << p->Size() << endl;
 }
@@ -93,8 +108,8 @@ void TestCreateTable()
     TestJson(db, sqlinsert);
 
     auto r = db.ExcecuteTuple(sqlinsert, std::forward_as_tuple(id, "Peter", bl));
-    //char* json;
-    //string strQery = "select * from PersonTable";
+    char* json;
+    string strQery = "select * from PersonTable";
     //for (size_t i = 0; i < 10000; i++)
     //{
     //	db.Query(strQery, json);
@@ -118,7 +133,7 @@ void TestPerformance()
     const string sqlinsert = "INSERT INTO TestInfoTable(ID, KPIID, CODE, V1, V2, V3, V4) VALUES(?, ?, ?, ?, ?, ?, ?);";
     bool ret = db.Prepare(sqlinsert);
     db.Begin();
-    for (size_t i = 0; i < 1000000; i++)
+    for (size_t i = 0; i < 1000; i++)
     {
         ret = db.ExcecuteArgs(i, i, i, i, i, i + 1.25, "it is a test");
         if (!ret)

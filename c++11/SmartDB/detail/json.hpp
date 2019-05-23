@@ -17,15 +17,25 @@ namespace detail
 
 		bool ExcecuteJson(sqlite3_stmt *stmt, const rapidjson::Value& val)
 		{
-			//auto p = val.GetMembersPointer();
-			for (size_t i = 0, size = val.Size(); i < size; ++i)
-			{
-				//const char* key = val.GetKey(p++);
-                const char* key = val.GetString();
-				auto& t = val[key];
+			////auto p = val.GetMembersPointer();
+			//for (size_t i = 0, size = val.Size(); i < size; ++i)
+			//{
+			//	//const char* key = val.GetKey(p++);
+   //             const char* key = val.GetString();
+			//	auto& t = val[key];
 
-				if (SQLITE_OK != BindJsonValue(stmt, t, i + 1))
-					return false;
+			//	if (SQLITE_OK != BindJsonValue(stmt, t, i + 1))
+			//		return false;
+			//}
+
+			if (val.IsObject()) {
+				int i = 0;
+				for (auto& m : val.GetObject()) {
+					if (SQLITE_OK != BindJsonValue(stmt, m.value, ++i)) {
+						sqlite3_reset(stmt);
+						return false;
+					}
+				}
 			}
 
 			m_code = sqlite3_step(stmt);

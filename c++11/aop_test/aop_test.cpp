@@ -104,6 +104,7 @@ void foo(int a)
 {
 	cout << "real HT function: " << a << endl;
 }
+
 int main()
 {
 	TestProxy();
@@ -116,7 +117,7 @@ int main()
 
 	// 织入普通函数
 	Invoke<CC, DD>(&GT);
-	Invoke<AA, BB>(&HT, 1);
+	Invoke<AA, BB, AA>(&HT, 1);
 	// 织入lambda表达式
 	Invoke<AA, BB>([](int i) {}, 1);
 	Invoke<CC, DD>([] {});

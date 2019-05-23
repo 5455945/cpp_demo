@@ -287,22 +287,28 @@ private:
 	//通过json串写到数据库中
 	bool JsonTransaction(const rapidjson::Document& doc)
 	{
+		bool ret = true;
 		Begin();
-
-		for (size_t i = 0, size = doc.Size(); i < size; i++)
-		{
-			if (!m_jsonHelper.ExcecuteJson(m_statement, doc[i]))
-			{
-				RollBack();
-				break;
+		if (doc.IsArray()) {
+			for (auto& it : doc.GetArray()) {
+				if (!m_jsonHelper.ExcecuteJson(m_statement, it))
+				{
+					ret = false;
+					break;
+				}
 			}
 		}
+		else {
+			RollBack();
+			ret = false;
+			throw std::logic_error("doc is not array!");
+		}
 
-		if (m_code != SQLITE_DONE)
-			return false;
-
+		if (!(m_code == SQLITE_DONE || m_code == SQLITE_OK)) {
+			ret = false;
+		}
 		Commit();
-		return true;
+		return ret;
 	}
 
 private:

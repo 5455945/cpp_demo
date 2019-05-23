@@ -93,7 +93,7 @@ private:
 	}
 
     template<typename V>
-    typename std::enable_if<std::is_same<V, size_t>::value>::type WriteValue(V value)
+    typename std::enable_if<std::is_same<V, uint64_t>::value>::type WriteValue(V value)
     {
         m_writer.Uint64(value);
     }

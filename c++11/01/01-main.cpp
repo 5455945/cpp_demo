@@ -7,7 +7,6 @@
 #include "01-07.h"
 
 int main() {
-	
 	test01();
 	test02();
 	test03();
@@ -15,6 +14,5 @@ int main() {
 	test05();
 	test06();
 	test07();
-	
 	return 0;
 }

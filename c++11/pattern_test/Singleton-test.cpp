@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "Singleton.hpp"
+#include "Singleton01.hpp"
 using namespace std;
 
 template <class T> T*  Singleton<T>::m_pInstance = nullptr;
@@ -45,4 +46,28 @@ void test_Singleton() {
 	Singleton<A>::DestroyInstance();
 	Singleton<B>::DestroyInstance();
 	Singleton<C>::DestroyInstance();
+}
+
+// 测试代码
+struct A0801 {
+	A0801() {}
+};
+struct B0801 {
+	B0801(int x) {};
+};
+struct C0801 {
+	C0801(int x, double y) {}
+};
+
+void test_Singleton080101() {
+	// 创建A类型的单例
+	Singleton01<A0801>::Instance();
+	// 创建B类型单例
+	Singleton01<B0801>::Instance(1);
+	// 创建C类型的单例
+	Singleton01<C0801>::Instance(1, 3.14);
+
+	Singleton01<A0801>::DestroyInstance();
+	Singleton01<B0801>::DestroyInstance();
+	Singleton01<C0801>::DestroyInstance();
 }

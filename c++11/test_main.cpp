@@ -16,7 +16,6 @@ auto add2(T t, U u) ->decltype(t + u)
 	return t + u;
 }
 
-
 int main() {
 	std::cout << "lfyadd(25, 30.0) = " << lfyadd(25, 30.0) << std::endl;
 	std::list<int> l1 = { 0, 1, 4, 3, 5, 7 };
@@ -47,6 +46,7 @@ int main() {
 
 	test_events();
 
+	test_Singleton080101();
 	test_Singleton();
 	TestVisitor();
 
