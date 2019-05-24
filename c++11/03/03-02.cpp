@@ -279,7 +279,7 @@ T* Instance(T0 args0, T1 args1, T2 args2, T3 args3, T4 args4) {
 }
 // C++11的写法
 //template <typename T, typename ... Args>
-//T * InstanceC11(Args... args) {
+//T * InstanceC11(Args... args) {  // 值拷贝，存在行呢个损耗
 //	return new T(args...);
 //};
 template<typename T, typename... Args>

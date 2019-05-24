@@ -62,6 +62,13 @@ add_executable(${proname02} 02/02-01.h 02/02-01.cpp 02/02-main.cpp)
 
 add_executable(${proname03} 03/03-01.h 03/03-01.cpp 
 03/03-02.h 03/03-02.cpp
+03/03-03.h 03/03-03.cpp
+03/Optional.hpp
+03/Lazy.hpp
+03/DllParser.hpp
+03/LambdaChain.hpp
+03/function_traits.hpp
+03/ScopeGuard.hpp
 03/03-main.cpp)
 
 add_executable(${proname04} 04/04-01.h 04/04-01.cpp 04/04-main.cpp)
@@ -149,6 +156,9 @@ if (WIN32)
         )
 	#target_compile_options(--std=c++11)
 	#add_compile_options(--std=c++11)
+	target_compile_options(${proname03} PRIVATE
+	    /std:c++17
+		)
   endif()
   # g++ 
   # SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-elide-constructors")
