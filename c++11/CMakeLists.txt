@@ -16,6 +16,7 @@ set(proname13 "c++11_demo13")
 set(proname14 "c++11_demo14")
 set(proname15 "c++11_demo15")
 set(proname16 "c++11_demo16")
+set(proname17 "C++11_2013")
 
 project("C++11_demo")
 
@@ -65,6 +66,7 @@ add_executable(${proname03} 03/03-01.h 03/03-01.cpp
 03/03-03.h 03/03-03.cpp
 03/Optional.hpp
 03/Lazy.hpp
+03/Lazy17.hpp
 03/DllParser.hpp
 03/LambdaChain.hpp
 03/function_traits.hpp
@@ -142,6 +144,15 @@ add_executable(${proname16}_server
 	asio_server/Message.hpp
 	asio_server/RWHandler.hpp
 	)
+	
+add_executable(${proname17} 
+  C++11_0/C++11.02.h C++11_0/C++11.02.cpp
+  C++11_0/C++11.03.h C++11_0/C++11.03.cpp
+  C++11_0/C++11.04.h C++11_0/C++11.04.cpp
+  C++11_0/C++11.05.h C++11_0/C++11.05.cpp
+  C++11_0/C++11.06.h C++11_0/C++11.06.cpp
+  C++11_0/C++11.07.h C++11_0/C++11.07.cpp
+  C++11_0/C++11.main.cpp)
 
 
 if (WIN32)

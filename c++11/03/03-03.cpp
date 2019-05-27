@@ -5,6 +5,7 @@
 #include <optional> // std:c++17
 #include "Optional.hpp"
 #include "Lazy.hpp"
+#include "Lazy17.hpp"
 #include "DllParser.hpp"
 #include "LambdaChain.hpp"
 #include "Any.hpp"
@@ -99,6 +100,38 @@ void test03_03_04() {
     t.Load();
 }
 
+void test03_03_04_17() {
+    struct BigObject {
+        BigObject() {
+            std::cout << "lazy load big object" << std::endl;
+        }
+    };
+    struct MyStruct {
+        MyStruct() {
+            m_obj = lazy17([] {return std::make_shared<BigObject>(); });
+        }
+        void Load() {
+            m_obj.Value();
+        }
+        Lazy17<std::shared_ptr<BigObject>> m_obj;
+    };
+    auto Foo = [](int x) { return x * 2; };
+    // 带参数的普通对象
+    int y = 4;
+    auto lazyer1 = lazy17(Foo, y);
+    std::cout << lazyer1.Value() << std::endl;
+    // 不带参数的lambda
+    Lazy17<int> lazyer2 = lazy17([] { return 2; });
+    std::cout << lazyer2.Value() << std::endl;
+    // 带参数的function
+    std::function<int(int)> f = [](int x) { return x + 3; };
+    auto lazyer3 = lazy17(f, 3);
+    std::cout << lazyer3.Value() << std::endl;
+    // 延迟加载大对象
+    MyStruct t;
+    t.Load();
+}
+
 // 3.3.3 dll帮助类
 void test03_03_05() {
     DllParser dllParser;
@@ -186,11 +219,13 @@ void test03_03_10() {
         // ...
     }
 }
+
 void test03_03() {
     test03_03_01();
     test03_03_02();
     test03_03_03();
     test03_03_04();
+    test03_03_04_17();
     test03_03_05();
     test03_03_06();
     test03_03_07();

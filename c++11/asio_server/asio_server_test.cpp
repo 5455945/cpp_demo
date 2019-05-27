@@ -13,6 +13,11 @@
 // 则从完成事件队列中取出完成事件，并通知应用程序注册的完成事件处理函数()去处理。
 // 4) 完成事件处理函数处理异步操作的结果。
 
+// asio的async_write，对于同一个socket，必须收到上一个async_write的完成事件后，在调用async_write;
+// 也就是对于同一个socket的async_write,必须顺序执行；调用async_write后，要收到在这个socket上的回调完成事件，
+// 才能在这个socket上进行下一次async_write调用。
+// async_write(sock1, buffer1, ....),async_write(sock2, buffer2, ...)是没问题的
+
 void TestServer()
 {
     io_service ios;

@@ -29,7 +29,7 @@ public:
 
         async_read(m_sock, buffer(m_readMsg.data(), HEAD_LEN), [this, self](const boost::system::error_code& ec, size_t size)
         {
-            if (ec || m_readMsg.decode_header())
+            if (ec || !m_readMsg.decode_header())
             {
                 HandleError(ec);
                 return;
