@@ -30,7 +30,7 @@ void TestServer()
 
     //thd.join();
 }
-
+#include <bitset>
 int main() {
     TestServer();
     return 0;

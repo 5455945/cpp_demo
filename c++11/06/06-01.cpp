@@ -5,6 +5,7 @@
 #include <iomanip>
 #include <ctime>
 #include <string>
+#include <sstream>
 // 6.1 处理日期和时间的chrono库
 
 // 6.1.1 记录时长的duration
@@ -103,6 +104,26 @@ void test06_01_05() {
 	std::cout << t.elapsed_hours() << std::endl;
 }
 
+void test06_01_06() {
+    // 打印精确到微秒和毫秒的时间
+    auto now = std::chrono::system_clock::now();
+    auto m = now.time_since_epoch();
+    auto diff = std::chrono::duration_cast<std::chrono::microseconds>(m).count(); //当前时间显示到微秒
+    auto const ms = diff % 1000000;
+    std::stringstream ss;
+    std::time_t t = std::chrono::system_clock::to_time_t(now);
+    ss << std::put_time(std::localtime(&t), "%Y-%m-%d %H.%M.%S") << "." << ms;
+    std::cout << "microseconds: " << ss.str() << std::endl;
+
+    ss.clear();
+    ss.str("");
+    auto diff2 = std::chrono::duration_cast<std::chrono::milliseconds>(m).count(); //当前时间显示到毫秒
+    auto const ms2 = diff2 % 1000;
+    std::time_t t2 = std::chrono::system_clock::to_time_t(now);
+    ss << std::put_time(std::localtime(&t2), "%Y-%m-%d %H.%M.%S") << "." << ms2;
+    std::cout << "milliseconds: " << ss.str() << std::endl;
+}
+
 // 6.2 数值类型和字符串的相互转换
 void test06_02_01() {
 	double f = 1.53;
@@ -145,13 +166,23 @@ void test06_03_01() {
 	std::wcout.imbue(std::locale("chs")); // 初始化cout为中文输出
 	std::wcout << wstr << std::endl;
 }
-
+#include <random>
+#include <ctime>
 void test06() {
+    unsigned int x = -1;
+    std::default_random_engine e;
+    time_t t = time(nullptr);
+    e.seed((unsigned int)t);
+    std::cout << x << " " << e() << std::endl;
+    std::chrono::system_clock s;
+    std::chrono::time_point<std::chrono::system_clock> t2;
+    std::cout << std::setw(5) << std::setfill('0') << 5 << std::endl;
 	test06_01_01();
 	test06_01_02();
 	test06_01_03();
 	test06_01_04();
 	test06_01_05();
+    test06_01_06();
 	test06_02_01();
 	test06_02_02();
 	test06_03_01();
