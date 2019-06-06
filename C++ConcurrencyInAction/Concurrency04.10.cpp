@@ -1,6 +1,8 @@
 #include "Concurrency04.h" 
 #include <future>
+// 4.3 生成std::promise
 namespace {
+    //// 使用std::promise在单个线程中处理多个链接
     //void process_connections(connection_set& connections)
     //{
     //    while (!done(connections))
@@ -29,5 +31,4 @@ namespace {
     //}
 }
 void Concurrency04_10() {
-
 }

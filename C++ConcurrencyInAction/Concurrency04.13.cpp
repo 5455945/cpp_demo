@@ -1,5 +1,8 @@
-#include "Concurrency04.h" 
+#include "Concurrency04.h"
+#include <algorithm>
+#include <future>
 #include <list>
+// FP风格并行快速排序
 namespace {
     template<typename T>
     std::list<T> parallel_quick_sort(std::list<T> input)
@@ -26,6 +29,13 @@ namespace {
     }
 
 }
+#include <iostream>
 void Concurrency04_13() {
-
+    std::cout << __FUNCTION__ << std::endl;
+    std::list<int> input = { 2, 3, 5, 1, 0, 4, 9, 8, 6, 7 };
+    std::list<int> output = parallel_quick_sort(input);
+    for (auto& it : output) {
+        std::cout << it << " ";
+    }
+    std::cout << std::endl;
 }

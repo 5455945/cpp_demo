@@ -1,6 +1,11 @@
-#include "Concurrency09.h" 
-
+#include "Concurrency09.h"
+#include <atomic>
+#include <future>
+#include <thread>
+#include <vector>
+// 9.2.7 在应用退出时中断后台任务
 namespace {
+    //// 在后台监视文件系统
     //std::mutex config_mutex;
     //std::vector<interruptible_thread> background_threads;
 

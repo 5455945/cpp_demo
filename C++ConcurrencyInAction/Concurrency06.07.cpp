@@ -2,6 +2,7 @@
 #include <memory>
 #include <mutex>
 namespace {
+    // 使用锁和等待的线程安全队列:内部与接口
     template<typename T>
     class threadsafe_queue
     {

@@ -2,6 +2,7 @@
 #include <atomic>
 #include <memory>
 namespace {
+    // 在使用两个引用计数的无锁栈中入栈结点
     template<typename T>
     class lock_free_stack
     {
@@ -38,7 +39,5 @@ namespace {
         }
     };
 }
-
 void Concurrency07_10() {
-
 }

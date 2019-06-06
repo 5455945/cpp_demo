@@ -69,5 +69,5 @@ namespace {
     }
 }
 void Concurrency03_07() {
-
+    other_stuff();
 }

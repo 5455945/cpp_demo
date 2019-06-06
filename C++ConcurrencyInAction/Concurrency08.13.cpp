@@ -3,13 +3,22 @@
 #include <thread>
 #include <vector>
 namespace {
-    struct join_threads
-    {
-        join_threads(std::vector<std::thread>&)
-        {}
+    // 通过成对更新的partial_sum的并行实现
+    class join_threads {
+    private:
+        std::vector<std::thread>& threads;
+    public:
+        explicit join_threads(std::vector<std::thread>& threads_) :
+            threads(threads_) {
+        }
+        ~join_threads() {
+            for (unsigned long i = 0; i < threads.size(); ++i) {
+                if (threads[i].joinable()) {
+                    threads[i].join();
+                }
+            }
+        }
     };
-
-
     struct barrier
     {
         std::atomic<unsigned> count;
@@ -81,7 +90,7 @@ namespace {
 
         unsigned long const length = std::distance(first, last);
 
-        if (length <= 1)
+        if (length <= 0)
             return;
 
         std::vector<value_type> buffer(length);
@@ -95,10 +104,28 @@ namespace {
             threads[i] = std::thread(process_element(), first, last,
                 std::ref(buffer), i, std::ref(b));
         }
-        process_element()(first, last, buffer, length - 1, b);
+        process_element()(first, last, std::ref(buffer), length - 1, std::ref(b));
     }
 }
-
+#include <atomic>
+#include <array>
+#include <numeric>
+#include <iostream>
 void Concurrency08_13() {
-
+    // 这个算法奇数个线程正确，偶数线程不正确
+    std::cout << __FUNCTION__ << std::endl;
+    std::atomic<bool> done = false;
+    std::array<int, 100> a;
+    std::iota(a.begin(), a.end(), 1);
+    for (auto& it : a) {
+        std::cout << it << " ";
+    }
+    std::cout << std::endl;
+    int b = std::accumulate(a.begin(), a.end(), 0);
+    std::cout << "b = " << b << std::endl;
+    parallel_partial_sum(a.begin(), a.end());
+    for (auto& it : a) {
+        std::cout << it << " ";
+    }
+    std::cout << std::endl;
 }

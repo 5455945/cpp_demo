@@ -1,6 +1,7 @@
 #include "Concurrency04.h" 
 
 namespace {
+    //// 简单ATM实现的getting_pin状态函数
     //void atm::getting_pin()
     //{
     //    incoming.wait()
@@ -35,5 +36,4 @@ namespace {
 
 }
 void Concurrency04_16() {
-
 }

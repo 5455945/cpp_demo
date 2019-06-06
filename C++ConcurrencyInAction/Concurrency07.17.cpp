@@ -1,6 +1,7 @@
 #include "Concurrency07.h" 
 
 namespace {
+    // 释放无锁队列中的节点引用
     template<typename T>
     class lock_free_queue
     {

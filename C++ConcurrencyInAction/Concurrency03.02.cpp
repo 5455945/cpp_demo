@@ -1,7 +1,8 @@
 #include "Concurrency03.h"
 #include <mutex>
-// 意外地传出对受保护数据的引用
+// 3.2 为保护共享数据精心组织代码
 namespace {
+    // 意外地传出对受保护数据的引用
     class some_data
     {
         int a;

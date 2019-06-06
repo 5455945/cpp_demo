@@ -1,7 +1,9 @@
 #include "Concurrency08.h" 
 #include <atomic>
+#include <future>
 #include <thread>
 namespace {
+    // 使用std::async实现的并行查找算法
     template<typename Iterator, typename MatchType>
     Iterator parallel_find_impl(Iterator first, Iterator last, MatchType match,
         std::atomic<bool>& done)
@@ -48,7 +50,21 @@ namespace {
         return parallel_find_impl(first, last, match, done);
     }
 }
-
+#include <atomic>
+#include <array>
+#include <numeric>
+#include <iostream>
 void Concurrency08_10() {
-
+    std::cout << __FUNCTION__ << std::endl;
+    std::atomic<bool> done = false;
+    std::array<int, 100> a;
+    std::iota(a.begin(), a.end(), 2);
+    int x = 98;
+    auto result = parallel_find_impl(a.begin(), a.end(), x, done);
+    if (result != a.end()) {
+        std::cout << "parallel_find_impl 找到 " << *result << std::endl;
+    }
+    else {
+        std::cout << "parallel_find_impl 没找到 " << x << std::endl;
+    }
 }

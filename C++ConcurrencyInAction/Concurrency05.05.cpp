@@ -2,6 +2,7 @@
 #include <atomic>
 #include <thread>
 #include <cassert>
+#include <iostream>
 // 2 非顺序一致的内存顺序
 // 事件不再是单一的全局顺序；线程不必和事件的顺序一致；线程不必和事件的顺序一致；线程不必和事件的顺序一致。
 // CPU缓存和内部缓冲区可能为相同的内存保存了不同的值。
@@ -27,14 +28,19 @@ namespace {
     }
 }
 void Concurrency05_05() {
-    x = false;
-    y = false;
-    z = 0;
-    std::thread a(write_x_then_y);
-    std::thread b(read_y_then_x);
-    a.join();
-    b.join();
-    assert(z.load() != 0); // ⑤
+    for (int i = 0; i < 100; i++) {
+        x = false;
+        y = false;
+        z = 0;
+        std::thread a(write_x_then_y);
+        std::thread b(read_y_then_x);
+        a.join();
+        b.join();
+        assert(z.load() != 0); // ⑤
+        if (z.load() == 0) { // 在vs2017编译下，没有这种情况发生，或者说概率很低
+            std::cout << i << " z.load() =" << z.load() << std::endl;
+        }
+    }
 }
 // assert⑤可能触发，因为x的载入④能够读到false，即便y的载入③读到了
 // true并且x的存储①发生于y存储②之前。x和y是不同的变量，所以关于每

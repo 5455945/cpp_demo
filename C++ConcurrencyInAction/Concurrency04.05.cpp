@@ -4,6 +4,7 @@
 #include <queue>
 #include <memory>
 namespace {
+    // 使用条件变量的线程安全队列的完整定义
     template<typename T>
     class threadsafe_queue
     {
@@ -68,8 +69,26 @@ namespace {
             std::lock_guard<std::mutex> lk(mut);
             return data_queue.empty();
         }
+
+        size_t size() const
+        {
+            std::lock_guard<std::mutex> lk(mut);
+            return data_queue.size();
+        }
     };
 }
 void Concurrency04_05() {
-
+    threadsafe_queue<int> qt;
+    std::thread t1([&qt]() {
+        for (int i = 0; i < 100; i++) {
+            qt.push(i);
+        }
+        });
+    std::thread t2([&qt]() {
+        while (!qt.empty()) {
+            qt.try_pop();
+        }
+        });
+    t1.join();
+    t2.join();
 }

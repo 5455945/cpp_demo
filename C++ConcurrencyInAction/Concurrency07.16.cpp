@@ -1,6 +1,7 @@
 #include "Concurrency07.h" 
 #include <memory>
 namespace {
+    // 使用引用计数tail的无锁队列中将节点出队列
     template<typename T>
     class lock_free_queue
     {

@@ -3,7 +3,11 @@
 #include <condition_variable>
 #include <thread>
 #include <queue>
+// 4 同步并发操作
+// 4.1 等待事件或其它条件
+// 4.1.1 用条件变量等待条件
 namespace {
+    // 使用std::condition_variable等待数据
     struct data_chunk
     {};
     std::mutex mut;

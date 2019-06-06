@@ -1,6 +1,7 @@
 #include "Concurrency04.h" 
 #include <memory>
 namespace {
+    // threadsafe_queueµÄ½Ó¿Ú
     template<typename T>
     class threadsafe_queue
     {
@@ -21,5 +22,4 @@ namespace {
     };
 }
 void Concurrency04_03() {
-
 }

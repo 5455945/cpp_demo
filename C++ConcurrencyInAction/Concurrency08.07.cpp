@@ -1,6 +1,23 @@
 #include "Concurrency08.h" 
-
+#include <vector>
+#include <future>
 namespace {
+    // std::for_each的并行版本
+    class join_threads {
+    private:
+        std::vector<std::thread>& threads;
+    public:
+        explicit join_threads(std::vector<std::thread>& threads_) :
+            threads(threads_) {
+        }
+        ~join_threads() {
+            for (unsigned long i = 0; i < threads.size(); ++i) {
+                if (threads[i].joinable()) {
+                    threads[i].join();
+                }
+            }
+        }
+    };
     template<typename Iterator, typename Func>
     void parallel_for_each(Iterator first, Iterator last, Func f)
     {
@@ -46,7 +63,16 @@ namespace {
         }
     }
 }
-
+#include <array>
+#include <numeric>
+#include <iostream>
 void Concurrency08_07() {
-
+    std::cout << __FUNCTION__ << std::endl;
+    std::array<int, 100> a;
+    std::iota(a.begin(), a.end(), 2);
+    parallel_for_each(a.begin(), a.end(), [](int& a) { a += 1; });
+    for (auto& it : a) {
+        std::cout << it << " ";
+    }
+    std::cout << std::endl;
 }

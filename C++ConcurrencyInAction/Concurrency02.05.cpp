@@ -1,6 +1,9 @@
 #include "Concurrency02.h"
 #include <thread>
+// 2.2 传递参数给线程函数
+// 2.3 转移线程的所有权
 namespace {
+    // 从函数中返回std::thread
     void some_function()
     {}
 

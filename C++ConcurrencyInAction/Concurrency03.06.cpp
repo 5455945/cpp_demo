@@ -5,6 +5,7 @@
 // 为了避免死锁，常见的建议是始终使用相同的顺序锁定两个互斥量;但是两个持有互斥量的对象交换时，也可能发生死锁。
 // C++标准库中的std::lock可以解决同时锁定两个或多个互斥量
 namespace {
+    // 在交换操作中使用std::lock()和std::lock_guard()
     class some_big_object
     {};
 
@@ -31,5 +32,7 @@ namespace {
     };
 }
 void Concurrency03_06() {
-
+    some_big_object sbo1, sbo2;
+    X x1(sbo1), x2(sbo2);
+    swap(x1, x2);
 }

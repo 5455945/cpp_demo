@@ -20,7 +20,7 @@ namespace {
     };
 }
 void AppendixA_02() {
-    //move_only m1;
-    //move_only m2(m1);
-    //move_only m3(std::move(m1));
+    //move_only m1;    // 错误
+    //move_only m2(m1); // 错误，拷贝构造函数声明为删除的
+    //move_only m3(std::move(m1)); // 正确，找到移动构造函数
 }

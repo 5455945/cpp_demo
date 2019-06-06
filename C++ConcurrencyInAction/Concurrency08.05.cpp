@@ -1,6 +1,10 @@
 #include "Concurrency08.h" 
-
+#include <algorithm>
+#include <future>
+#include <numeric>
+#include <thread>
 namespace {
+    // 使用std::async的std::accumulate的异常安全并行版本
     template<typename Iterator, typename T>
     T parallel_accumulate(Iterator first, Iterator last, T init)
     {
@@ -22,7 +26,19 @@ namespace {
         }
     }
 }
-
+#include <list>
+#include <iostream>
+#include <vector>
 void Concurrency08_05() {
-
+    std::cout << __FUNCTION__ << std::endl;
+    std::list<int> l = { 1, 2, 5, 3, 4, 9, 6, 7, 8, 0 };
+    auto result = parallel_accumulate<std::list<int>::iterator, int>(l.begin(), l.end(), 0);
+    std::cout << "result = " << result << std::endl;
+    std::vector<unsigned long> vi;
+    for (unsigned long i = 0; i < 10; ++i)
+    {
+        vi.push_back(i);
+    }
+    unsigned long sum = parallel_accumulate<std::vector<unsigned long>::iterator, unsigned long>(vi.begin(), vi.end(), 0);
+    std::cout << "sum = " << sum << std::endl;
 }

@@ -1,6 +1,7 @@
 #include "Concurrency07.h" 
 #include <atomic>
 namespace {
+    //// 在无锁队列中获得节点的新引用
     //template<typename T>
     //class lock_free_queue
     //{

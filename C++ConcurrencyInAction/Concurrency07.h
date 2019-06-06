@@ -21,3 +21,5 @@ void Concurrency07_18();
 void Concurrency07_19();
 void Concurrency07_20();
 void Concurrency07_21();
+void Concurrency07_22();
+void Concurrency07_23();

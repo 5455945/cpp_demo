@@ -109,6 +109,8 @@ void Concurrency07() {
     Concurrency07_19();
     Concurrency07_20();
     Concurrency07_21();
+    Concurrency07_22();
+    Concurrency07_23();
 }
 void Concurrency08() {
     Concurrency08_01();
@@ -151,54 +153,9 @@ void AppendixA() {
 }
 void AppendixC() {
     AppendixC_01();
-    AppendixC_02();
-    AppendixC_03();
-    AppendixC_04();
-    AppendixC_05();
-    AppendixC_06();
-    AppendixC_07();
-    AppendixC_08();
-    AppendixC_09();
-    AppendixC_10();
 }
-#include <atomic>
-#include <iostream>
-int main() {
-    std::atomic<int> x = 1;
-    int y = 2;
-    int z = 3;
-    double d = 3.24;
-    bool b = x.compare_exchange_strong(y, z);
-    std::cout << b << " " << x << " " << y << " " << z << std::endl;
-    x = 0;
-    y = 0;
-    z = 3;
-    b = x.compare_exchange_strong(y, z);
-    std::cout << b << " " << x << " " << y << " " << z << std::endl;
-    x = 4;
-    y = 4;
-    z = 5;
-    b = x.compare_exchange_strong(y, z);
-    std::cout << b << " " << x << " " << y << " " << z << std::endl;
-    x = 1;
-    y = 2;
-    z = 3;
-    b = x.compare_exchange_weak(y, z);
-    std::cout << b << " " << x << " " << y << " " << z << std::endl;
-    x = 4;
-    y = 4;
-    z = 5;
-    b = x.compare_exchange_weak(y, z);
-    std::cout << b << " " << x << " " << y << " " << z << std::endl;
-    d = 3.24;
-    b = x.compare_exchange_weak(y, d);
-    std::cout << b << " " << x << " " << y << " " << d << std::endl;
-    x = 0;
-    y = 0;
-    b = x.compare_exchange_weak(y, d);
-    std::cout << b << " " << x << " " << y << " " << d << std::endl;
-    int e = x.exchange(9);
 
+int main() {
     Concurrency01();
     Concurrency02();
     Concurrency03();

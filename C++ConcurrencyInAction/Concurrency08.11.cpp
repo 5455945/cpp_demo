@@ -1,8 +1,25 @@
 #include "Concurrency08.h" 
-
+#include <future>
+#include <thread>
 namespace {
+    // 通过划分问题来并行计算分段的和
+    class join_threads {
+    private:
+        std::vector<std::thread>& threads;
+    public:
+        explicit join_threads(std::vector<std::thread>& threads_) :
+            threads(threads_) {
+        }
+        ~join_threads() {
+            for (unsigned long i = 0; i < threads.size(); ++i) {
+                if (threads[i].joinable()) {
+                    threads[i].join();
+                }
+            }
+        }
+    };
     template<typename Iterator>
-    void parallel_partial_sum(Iterator first, Iterator last)
+    Iterator parallel_partial_sum(Iterator first, Iterator last)
     {
         typedef typename Iterator::value_type value_type;
         struct process_chunk
@@ -18,7 +35,8 @@ namespace {
                     std::partial_sum(begin, end, begin);
                     if (previous_end_value)
                     {
-                        value_type& addend = previous_end_value->get();
+                        //value_type& addend = previous_end_value->get();
+                        value_type addend = previous_end_value->get();
                         *last += addend;
                         if (end_value)
                         {
@@ -95,7 +113,14 @@ namespace {
             0);
     }
 }
-
+#include <array>
+#include <numeric>
+#include <iostream>
 void Concurrency08_11() {
-
+    std::cout << __FUNCTION__ << std::endl;
+    // 有问题
+    //std::array<int, 100> a;
+    //std::iota(a.begin(), a.end(), 2);
+    //auto result = parallel_partial_sum(a.begin(), a.end());
+    //std::cout << "parallel_partial_sum = " << *result << std::endl;
 }

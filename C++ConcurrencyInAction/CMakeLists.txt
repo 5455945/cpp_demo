@@ -55,7 +55,8 @@ Concurrency04.12.cpp
 Concurrency04.13.cpp
 Concurrency04.14.cpp
 Concurrency04.15.cpp
-Concurrency04.16.cpp)
+Concurrency04.16.cpp
+)
 SET(gConcurrency05 
 Concurrency05.h
 Concurrency05.01.cpp
@@ -108,7 +109,9 @@ Concurrency07.17.cpp
 Concurrency07.18.cpp
 Concurrency07.19.cpp
 Concurrency07.20.cpp
-Concurrency07.21.cpp)
+Concurrency07.21.cpp
+Concurrency07.22.cpp
+Concurrency07.23.cpp)
 SET(gConcurrency08 
 Concurrency08.h
 Concurrency08.01.cpp
@@ -145,17 +148,18 @@ AppendixA01.cpp
 AppendixA02.cpp
 AppendixA03.cpp
 AppendixA04.cpp)
-Set(gAppendixC AppendixC.h
-AppendixC01.cpp
-AppendixC02.cpp
-AppendixC03.cpp
-AppendixC04.cpp
-AppendixC05.cpp
-AppendixC06.cpp
-AppendixC07.cpp
-AppendixC08.cpp
-AppendixC09.cpp
-AppendixC10.cpp)
+Set(gAppendixC 
+AppendixC.h
+AppendixC_atm.hpp
+AppendixC_bank_machine.hpp
+AppendixC_dispatcher.hpp
+AppendixC_interface_machine.hpp
+AppendixC_messages.hpp
+AppendixC_queue.hpp
+AppendixC_receiver.hpp
+AppendixC_sender.hpp
+AppendixC_TemplateDispatcher.hpp
+AppendixC_main.cpp)
 
 SOURCE_GROUP(Concurrency01 FILES ${gConcurrency01})
 SOURCE_GROUP(Concurrency02 FILES ${gConcurrency02})
@@ -173,14 +177,14 @@ SOURCE_GROUP(AppendixC FILES ${gAppendixC})
 add_executable(${Concurrency}
 ${gConcurrency01} 
 ${gConcurrency02} 
-${gConcurrency03} 
-${gConcurrency04} 
-${gConcurrency05} 
-${gConcurrency06} 
-${gConcurrency07} 
-${gConcurrency08} 
-${gConcurrency09} 
-${gConcurrency10} 
-${gAppendixA} 
-${gAppendixC} 
+${gConcurrency03}
+${gConcurrency04}
+${gConcurrency05}
+${gConcurrency06}
+${gConcurrency07}
+${gConcurrency08}
+${gConcurrency09}
+${gConcurrency10}
+${gAppendixA}
+${gAppendixC}
 ConcurrencyMain.cpp)

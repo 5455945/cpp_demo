@@ -1,6 +1,8 @@
 #include "Concurrency04.h" 
 #include <string>
+// 4.4.2 具有消息传递的同步操作
 namespace {
+    //// ATM逻辑类的简单实现
     //struct card_inserted
     //{
     //    std::string account;
@@ -46,5 +48,4 @@ namespace {
     //};
 }
 void Concurrency04_15() {
-
 }

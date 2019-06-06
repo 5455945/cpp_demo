@@ -2,6 +2,7 @@
 #include <atomic>
 #include <functional>
 namespace {
+    //// 回收函数的简单实现
     //template<typename T>
     //void do_delete(void* p)
     //{
@@ -33,6 +34,15 @@ namespace {
     //void reclaim_later(T* data)
     //{
     //    add_to_reclaim_list(new data_to_reclaim(data));
+    //}
+
+    //bool outstanding_hazard_pointers_for(void* p)
+    //{
+    //    for (unsigned i = 0; i < max_hazard_pointers; ++i) {
+    //        if (hazard_pointers[i].pointer.load() == p) {
+    //            return true;
+    //        }
+    //    }
     //}
     //void delete_nodes_with_no_hazards()
     //{

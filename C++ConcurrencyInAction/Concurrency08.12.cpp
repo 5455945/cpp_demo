@@ -2,6 +2,7 @@
 #include <atomic>
 #include <thread>
 namespace {
+    // 一个简单的屏障类(barrier)
     class barrier
     {
         unsigned const count;
@@ -29,5 +30,5 @@ namespace {
 }
 
 void Concurrency08_12() {
-
+    barrier b(10);
 }

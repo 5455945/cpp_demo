@@ -1,6 +1,7 @@
 #include "Concurrency06.h" 
 
 namespace {
+    //// 使用锁和等待的线程安全队列:push新值
     //template<typename T>
     //void threadsafe_queue<T>::push(T new_value)
     //{

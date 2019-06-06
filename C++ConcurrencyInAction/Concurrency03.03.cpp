@@ -1,5 +1,6 @@
 #include "Concurrency03.h"
 #include <deque>
+// 2.3 发现接口中固有的竞争条件
 namespace {
     // std::tack容器适配器的接口
     template<typename T, typename Container = std::deque<T> >
@@ -24,5 +25,4 @@ namespace {
     };
 }
 void Concurrency03_03() {
-
 }

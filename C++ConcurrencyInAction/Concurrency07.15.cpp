@@ -1,6 +1,7 @@
 #include "Concurrency07.h" 
 #include <atomic>
 namespace {
+    // 在无锁队列中应用计数tail来实现push()
     template<typename T>
     class lock_free_queue
     {

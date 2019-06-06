@@ -37,7 +37,11 @@ namespace {
     };
 }
 void Concurrency03_13() {
-
+    dns_cache dc;
+    dns_entry de;
+    std::string domain = "domain";
+    dc.find_entry(domain);
+    dc.update_or_add_entry(domain, de);
 }
 
 // 3.3.3 µİ¹éËø

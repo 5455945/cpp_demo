@@ -5,7 +5,9 @@
 #include <functional>
 #include <vector>
 #include <iostream>
+// 2.4 在运行时选择线程数量
 namespace {
+    // std::accumulate的简单的并行版本
     template<typename Iterator, typename T>
     struct accumulate_block
     {

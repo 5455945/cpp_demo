@@ -49,5 +49,9 @@ namespace {
     };
 }
 void Concurrency03_12() {
-
+    data_packet dp;
+    connection_info ci;
+    X x(ci);
+    x.send_data(dp);
+    x.receive_data();
 }

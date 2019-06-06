@@ -17,14 +17,18 @@ namespace {
     }
 
     // 3.2.8 锁定在恰当的粒度
-    //void get_and_process_data() {
-    //    std::unique_lock<std::mutex> my_lock(the_mutex);
-    //    some_class data_to_process = get_next_data_chunk();
-    //    my_lock.unlock();// 对于process的调用不需要互斥元
-    //    result_type result = process(data_to_process);
-    //    my_lock.lock(); // 重新锁定互斥元已回写结果
-    //    write_result(data_to_process, result);
-    //}
+    int get_next_data_chunk() { return 0; }
+    int process(int) { return 0; }
+    void write_result(int, int) {}
+    void get_and_process_data() {
+        std::mutex the_mutex;
+        std::unique_lock<std::mutex> my_lock(the_mutex);
+        int data_to_process = get_next_data_chunk();
+        my_lock.unlock();// 对于process的调用不需要互斥元
+        int result = process(data_to_process);
+        my_lock.lock(); // 重新锁定互斥元已回写结果
+        write_result(data_to_process, result);
+    }
     // 一般情况下，只应以执行要求的操作所需的最小可能时间持有锁。
 
     // 在比较运算中每次锁定一个互斥元
@@ -54,6 +58,16 @@ namespace {
         }
     };
 }
+#include <iostream>
 void Concurrency03_10() {
-
+    std::cout << __FUNCTION__ << std::endl;
+    process_data();
+    get_and_process_data();
+    Y y2(2), y3(2);
+    if (y2 == y3) {
+        std::cout << "y2 == y3" << std::endl;
+    }
+    else {
+        std::cout << "y2 != y3" << std::endl;
+    }
 }

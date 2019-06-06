@@ -2,9 +2,7 @@
 #include <string>
 #include <future>
 #include <iostream>
-namespace {
-
-}
+// 使用std::async来将参数传递给函数
 void Concurrency04_07() {
     struct X
     {
@@ -22,8 +20,7 @@ void Concurrency04_07() {
     Y y;
     auto f3 = std::async(Y(), 3.141);
     auto f4 = std::async(std::ref(y), 2.718);
-    //X baz(X&);
-    //auto f6 = std::async(baz, std::ref(x));
+    
     class move_only
     {
     public:
@@ -35,4 +32,12 @@ void Concurrency04_07() {
         void operator()() {};
     };
     auto f5 = std::async(move_only());
+
+    //X baz(&x);
+    //auto f6 = std::async(std::launch::async, Y(), 1.2); // 在新线程中运行
+    //auto f7 = std::async(std::launch::deferred, baz, std::ref(x));
+    //auto f8 = std::async(std::launch::async | std::launch::deferred,
+    //    baz, std::ref(x));
+    //auto f9 = std::async(baz, std::ref(x));
+    //f7.wait();
 }

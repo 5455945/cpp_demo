@@ -1,6 +1,7 @@
 #include "Concurrency07.h" 
 
 namespace {
+    //// 首次(很逊的)尝试修订push()
     //void push(T new_value)
     //{
     //    std::unique_ptr<T> new_data(new T(new_value));
@@ -22,7 +23,5 @@ namespace {
     //    }
     //}
 }
-
 void Concurrency07_14() {
-
 }

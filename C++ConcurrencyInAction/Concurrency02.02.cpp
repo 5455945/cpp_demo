@@ -1,6 +1,10 @@
 #include "Concurrency02.h"
 #include <thread>
+// 2.1.2 等待线程完成
+// join(),joinable()
+// 2.1.3 在异常环境下等待
 namespace C0202{
+    // 等待线程结束
     void do_something(int& i)
     {
         ++i;

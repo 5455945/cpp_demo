@@ -27,5 +27,7 @@ namespace {
 }
 
 void AppendixA_01() {
-
+    X x1;
+    X x2;
+    X x3(x2);
 }

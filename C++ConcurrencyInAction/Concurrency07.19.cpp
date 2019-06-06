@@ -1,6 +1,7 @@
 #include "Concurrency07.h" 
 
 namespace {
+    //// 在无锁队列中释放节点的外部计数
     //template<typename T>
     //class lock_free_queue
     //{

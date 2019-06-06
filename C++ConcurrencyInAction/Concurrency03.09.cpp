@@ -32,5 +32,7 @@ namespace {
     };
 }
 void Concurrency03_09() {
-    
+    some_big_object sbo1, sbo2;
+    X x1(sbo1), x2(sbo2);
+    swap(x1, x2);
 }

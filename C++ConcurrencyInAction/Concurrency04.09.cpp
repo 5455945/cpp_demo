@@ -5,7 +5,8 @@
 #include <thread>
 #include <utility>
 namespace {
-    //// 这个有运行异常
+    //// 开启有编译运行即有异常
+    //// 使用std::packaged_task在GUI线程上运行代码
     //std::mutex m;
     //std::deque<std::packaged_task<void()> > tasks;
 
@@ -44,5 +45,5 @@ namespace {
     //}
 }
 void Concurrency04_09() {
-
+    //gui_thread();
 }

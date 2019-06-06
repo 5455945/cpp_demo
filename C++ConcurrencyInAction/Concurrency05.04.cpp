@@ -31,6 +31,12 @@
 // 1 顺序一致顺序
 namespace {
     // 顺序一致隐含着总体顺序
+    // 这里x的读和写顺序一致；y的读和写也顺序一致。
+    // 也就说不同线程一定是看到相同的值；
+    // 当A线程修改了x之后(内存里的x值)，B线程读取x时，一定时修改之后的值。不可能使用缓存中之前的x的值。
+    // 这个机制时通过std::memory_order_seq_cst控制，这将导致线程之间(cpu不同核之间)频繁的和内存同步，
+    // 一旦有修改，其它线程必须从内存中获取新值。
+    // 这里需要考虑cpu核心的寄存器，cpu的缓存，和内存。
     std::atomic<bool> x, y;
     std::atomic<int> z;
     void write_x()
@@ -55,16 +61,18 @@ namespace {
     }
 }
 void Concurrency05_04() {
-    x = false;
-    y = false;
-    z = 0;
-    std::thread a(write_x);
-    std::thread b(write_y);
-    std::thread c(read_x_then_y);
-    std::thread d(read_y_then_x);
-    a.join();
-    b.join();
-    c.join();
-    d.join();
-    assert(z.load() != 0); // ⑤
+    for (int i = 0; i < 100; i++) {
+        x = false;
+        y = false;
+        z = 0;
+        std::thread a(write_x);
+        std::thread b(write_y);
+        std::thread c(read_x_then_y);
+        std::thread d(read_y_then_x);
+        a.join();
+        b.join();
+        c.join();
+        d.join();
+        assert(z.load() != 0); // ⑤ 这个断言不会被触发，z!=0
+    }
 }

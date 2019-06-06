@@ -2,6 +2,7 @@
 #include <memory>
 #include <mutex>
 namespace {
+    // 使用细粒度锁的线程安全队列
     template<typename T>
     class threadsafe_queue
     {
@@ -30,11 +31,10 @@ namespace {
             {
                 return nullptr;
             }
-            std::unique_ptr<node> const old_head = std::move(head);
+            std::unique_ptr<node> old_head = std::move(head);
             head = std::move(old_head->next);
             return old_head;
         }
-
 
     public:
         threadsafe_queue() :
@@ -64,6 +64,31 @@ namespace {
     };
 }
 
+#include <iostream>
+#include <thread>
+#include <atomic>
 void Concurrency06_06() {
-
+    threadsafe_queue<int> tq;
+    std::cout << "06.06 使用细粒度锁的线程安全队列" << std::endl;
+    std::thread t1([&]() {
+        for (int i = 0; i < 100; i++) {
+            tq.push(i);
+        }
+        });
+    std::thread t2([&]() {
+        for (int i = 0; i < 100; i++) {
+            std::shared_ptr<int> p = tq.try_pop();
+            if (p) {
+                std::cout << *p << " ";
+            }
+            else {
+                std::this_thread::sleep_for(std::chrono::milliseconds(10));
+                i--;
+                continue;
+            }
+        }
+        std::cout << std::endl;
+        });
+    t1.join();
+    t2.join();
 }

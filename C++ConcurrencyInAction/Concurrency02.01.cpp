@@ -1,7 +1,11 @@
 #include "Concurrency02.h"
 #include <thread>
 #include <iostream>
+// 2 管理线程
+// 2.1 基本线程管理
+// 2.1.1 启动线程
 namespace C0201{
+    // 当线程仍然访问局部变量时返回的函数
     void do_something(int& i)
     {
         ++i;

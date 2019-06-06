@@ -1,6 +1,23 @@
-#include "Concurrency08.h" 
-
+#include "Concurrency08.h"
+#include <atomic>
+#include <future>
 namespace {
+    // std::find的并行实现
+    class join_threads {
+    private:
+        std::vector<std::thread>& threads;
+    public:
+        explicit join_threads(std::vector<std::thread>& threads_) :
+            threads(threads_) {
+        }
+        ~join_threads() {
+            for (unsigned long i = 0; i < threads.size(); ++i) {
+                if (threads[i].joinable()) {
+                    threads[i].join();
+                }
+            }
+        }
+    };
     template<typename Iterator, typename MatchType>
     Iterator parallel_find(Iterator first, Iterator last, MatchType match)
     {
@@ -79,7 +96,19 @@ namespace {
         return result.get_future().get();
     }
 }
-
+#include <array>
+#include <numeric>
+#include <iostream>
 void Concurrency08_09() {
-
+    std::cout << __FUNCTION__ << std::endl;
+    std::array<int, 100> a;
+    std::iota(a.begin(), a.end(), 2);
+    int x = 98;
+    auto result = parallel_find(a.begin(), a.end(), x);
+    if (result != a.end()) {
+        std::cout << "parallel_find找到 " << *result << std::endl;
+    }
+    else {
+        std::cout << "parallel_find没找到 " << x << std::endl;
+    }
 }

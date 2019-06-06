@@ -3,6 +3,7 @@
 //#include <utility>
 #include <stdexcept>
 namespace {
+    // scoped_thread和示例用法
     class scoped_thread
     {
         std::thread t;
@@ -46,9 +47,8 @@ namespace {
 
     void f()
     {
-        int some_local_state;
+        int some_local_state = 0;
         scoped_thread t(std::thread(func(some_local_state)));
-
         do_something_in_current_thread();
     }
 }

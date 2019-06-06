@@ -1,6 +1,7 @@
 #include "Concurrency08.h" 
-
+#include <future>
 namespace {
+    // 使用std::async的std::for_each的并行版本
     template<typename Iterator, typename Func>
     void parallel_for_each(Iterator first, Iterator last, Func f)
     {
@@ -26,7 +27,16 @@ namespace {
         }
     }
 }
-
+#include <array>
+#include <numeric>
+#include <iostream>
 void Concurrency08_08() {
-
+    std::cout << __FUNCTION__ << std::endl;
+    std::array<int, 100> a;
+    std::iota(a.begin(), a.end(), 2);
+    parallel_for_each(a.begin(), a.end(), [](int& a) { a += 1; });
+    for (auto& it : a) {
+        std::cout << it << " ";
+    }
+    std::cout << std::endl;
 }

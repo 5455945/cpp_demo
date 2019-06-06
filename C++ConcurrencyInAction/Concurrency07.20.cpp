@@ -1,6 +1,7 @@
 #include "Concurrency07.h" 
 
 namespace {
+    //// ĞŞ¸Äpop()À´ÔÊĞí°ïÖúpush()
     //template<typename T>
     //class lock_free_queue
     //{

@@ -1,8 +1,8 @@
 #include "Concurrency03.h"
 #include <exception>
 #include <memory>
-// 一个线程安全栈的概要定义
 namespace {
+    // 一个线程安全栈的概要定义
     struct empty_stack : std::exception
     {
         const char* what() const throw();
@@ -23,6 +23,5 @@ namespace {
     };
 }
 void Concurrency03_04() {
-
 }
 

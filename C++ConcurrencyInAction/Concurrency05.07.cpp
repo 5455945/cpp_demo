@@ -35,18 +35,20 @@ namespace {
     }
 }
 void Concurrency05_07() {
-    x = false;
-    y = false;
-    z = 0;
-    std::thread a(write_x);
-    std::thread b(write_y);
-    std::thread c(read_x_then_y);
-    std::thread d(read_y_then_x);
-    a.join();
-    b.join();
-    c.join();
-    d.join();
-    assert(z.load() != 0); // ③
+    for (int i = 0; i < 100; i++) {
+        x = false;
+        y = false;
+        z = 0;
+        std::thread a(write_x);
+        std::thread b(write_y);
+        std::thread c(read_x_then_y);
+        std::thread d(read_y_then_x);
+        a.join();
+        b.join();
+        c.join();
+        d.join();
+        assert(z.load() != 0); // ③
+    }
 }
 // 这个例子中断言③可以触发，因为对x的载入②和对y的载入①都读取false是可能的。
 // x和y由不同的线程写入，所以每种情况下从释放到获取的顺序对于另外一个线程中的

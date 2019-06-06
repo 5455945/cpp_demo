@@ -2,6 +2,7 @@
 #include <thread>
 #include <iostream>
 namespace C0203{
+    // 使用RAII等待线程完成
     class thread_guard
     {
         std::thread& t;

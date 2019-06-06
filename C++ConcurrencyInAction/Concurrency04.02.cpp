@@ -1,6 +1,8 @@
 #include "Concurrency04.h" 
 #include <queue>
+// 使用条件变量建立一个线程安全队列
 namespace {
+    // std::quque接口
     template <class T, class Container = std::deque<T> >
     class queue {
     public:
@@ -30,5 +32,4 @@ namespace {
     };
 }
 void Concurrency04_02() {
-
 }

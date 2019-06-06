@@ -1,6 +1,7 @@
 #include "AppendixA.h"
 
 namespace {
+    // 具有平凡默认构造函数的类
     class CX
     {
     private:
@@ -26,5 +27,12 @@ namespace {
     };
 }
 void AppendixA_03() {
-
+    CX cx1;
+    CX cx2(1, 2);
+    int a11 = cx1.get_a();
+    int b11 = cx1.get_b();
+    int c10 = cx1.foo();
+    int a21 = cx2.get_a();
+    int b21 = cx2.get_b();
+    int c20 = cx2.foo();
 }

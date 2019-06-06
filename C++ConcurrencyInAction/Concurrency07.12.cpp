@@ -1,7 +1,9 @@
 #include "Concurrency07.h" 
 #include <atomic>
 #include <memory>
+// 7.2.5 将内存模型应用至无锁栈
 namespace {
+    // 使用引用计数和放松原子操作的无锁栈
     template<typename T>
     class lock_free_stack
     {
@@ -9,8 +11,8 @@ namespace {
         struct node;
         struct counted_node_ptr
         {
-            int external_count;
-            node* ptr;
+            int external_count = 0;
+            node* ptr = nullptr;
         };
         struct node
         {
@@ -30,7 +32,7 @@ namespace {
             {
                 new_counter = old_counter;
                 ++new_counter.external_count;
-            } while (!head.compare_exchange_strong(
+            } while (!head.compare_exchange_strong( // 这里使用strong
                 old_counter, new_counter,
                 std::memory_order_acquire,
                 std::memory_order_relaxed));
@@ -46,11 +48,11 @@ namespace {
             counted_node_ptr new_node;
             new_node.ptr = new node(data);
             new_node.external_count = 1;
-            new_node.ptr->next = head.load(std::memory_order_relaxed)
-                while (!head.compare_exchange_weak(
-                    new_node.ptr->next, new_node,
-                    std::memory_order_release,
-                    std::memory_order_relaxed));
+            new_node.ptr->next = head.load(std::memory_order_relaxed);
+            while (!head.compare_exchange_weak(
+                new_node.ptr->next, new_node,
+                std::memory_order_release,
+                std::memory_order_relaxed));
         }
         std::shared_ptr<T> pop()
         {
@@ -77,8 +79,7 @@ namespace {
                     }
                     return res;
                 }
-                else if (ptr->internal_count.fetch_add(
-                    -1, std::memory_order_relaxed) == 1)
+                else if (ptr->internal_count.fetch_add(1, std::memory_order_relaxed) == 1)
                 {
                     ptr->internal_count.load(std::memory_order_acquire);
                     delete ptr;
@@ -87,7 +88,31 @@ namespace {
         }
     };
 }
-
+#include <atomic>
+#include <iostream>
+#include <thread>
 void Concurrency07_12() {
-
+    //std::cout << __FUNCTION__ << std::endl;
+    //lock_free_stack<int> lfs;
+    //std::atomic_bool running = false;
+    //std::thread t1([&]() {
+    //    if (!running) {
+    //        std::this_thread::yield();
+    //    }
+    //    for (int i = 0; i < 1000; i++) {
+    //        lfs.push(i);
+    //    }
+    //    });
+    //std::thread t2([&]() {
+    //    if (!running) {
+    //        std::this_thread::yield();
+    //    }
+    //    std::shared_ptr<int> result;
+    //    for (int i = 0; i < 1000; i++) {
+    //        result = lfs.pop();
+    //    }
+    //    });
+    //running.store(true);
+    //t1.join();
+    //t2.join();
 }

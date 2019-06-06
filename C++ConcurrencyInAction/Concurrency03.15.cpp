@@ -12,8 +12,6 @@
 // scoped_lock 类不可复制。
 // 以下示例用 std::scoped_lock 锁定互斥对而不死锁，且为 RAII 风格。
 namespace {
-
-
     struct Employee {
         Employee(std::string id) : id(id) {}
         std::string id;
@@ -72,7 +70,6 @@ namespace {
 void Concurrency03_15() {
     Employee alice("alice"), bob("bob"), christina("christina"), dave("dave");
 
-    // 在并行线程中指派，因为就午餐指派发邮件消耗很长时间
     std::vector<std::thread> threads;
     threads.emplace_back(assign_lunch_partner, std::ref(alice), std::ref(bob));
     threads.emplace_back(assign_lunch_partner, std::ref(christina), std::ref(bob));
