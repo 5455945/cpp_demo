@@ -16,6 +16,10 @@ add_executable(${proname}
   src/OpenMP01.02.cpp
   src/OpenMP01.03.h
   src/OpenMP01.03.cpp
+  src/OpenMP01.04.h
+  src/OpenMP01.04.cpp
+  src/OpenMP01.05.h
+  src/OpenMP01.05.cpp
   src/OpenMP.main.cpp)
 
 
@@ -28,7 +32,7 @@ if (WIN32)
         #/MX
         #/wd4996
         #/wd4503
-		/std:c++17
+		#/std:c++17
         )
   endif()
   # g++ 

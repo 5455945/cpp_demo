@@ -2,7 +2,6 @@
 #include "omp.h"
 #include <array>
 #include <iostream>
-#include "mpi.h"
 
 // OPENMP 实现快速排序
 void quickSort(int* num, int low, int high);  // 进行分区
