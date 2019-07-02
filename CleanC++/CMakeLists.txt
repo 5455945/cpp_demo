@@ -19,6 +19,7 @@ add_executable(${proname}
   src/CleanC++06.cpp
   src/CleanC++07.cpp
   src/CleanC++08.cpp
+  src/CleanC++09.h
   src/CleanC++09.cpp
   src/CleanC++.main.cpp)
 

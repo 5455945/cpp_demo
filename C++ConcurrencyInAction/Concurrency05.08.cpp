@@ -21,14 +21,16 @@ namespace {
     }
 }
 void Concurrency05_08() {
-    x = false;
-    y = false;
-    z = 0;
-    std::thread a(write_x_then_y);
-    std::thread b(read_y_then_x);
-    a.join();
-    b.join();
-    assert(z.load() != 0); // ⑤
+    for (int i = 0; i < 100; i++) {
+        x = false;
+        y = false;
+        z = 0;
+        std::thread a(write_x_then_y);
+        std::thread b(read_y_then_x);
+        a.join();
+        b.join();
+        assert(z.load() != 0); // ⑤
+    }
 }
 // 这里对y的存储更改为使用memory_order_release,并且让对y的载入使
 // 用memory_order_qcquire,实际上就相当于对x上的操作施加了一个顺序。

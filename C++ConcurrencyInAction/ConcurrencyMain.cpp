@@ -8,6 +8,7 @@
 #include "Concurrency08.h"
 #include "Concurrency09.h"
 #include "Concurrency10.h"
+#include "Concurrency11.h"
 #include "AppendixA.h"
 #include "AppendixC.h"
 void Concurrency01() {
@@ -145,6 +146,9 @@ void Concurrency09() {
 void Concurrency10() {
     Concurrency10_01();
 }
+void Concurrency11() {
+    Concurrency11_01();
+}
 void AppendixA() {
     AppendixA_01();
     AppendixA_02();
@@ -156,17 +160,18 @@ void AppendixC() {
 }
 
 int main() {
-    Concurrency01();
-    Concurrency02();
-    Concurrency03();
-    Concurrency04();
+    //Concurrency01();
+    //Concurrency02();
+    //Concurrency03();
+    //Concurrency04();
     Concurrency05();
-    Concurrency06();
-    Concurrency07();
-    Concurrency08();
-    Concurrency09(); 
-    Concurrency10();
-    AppendixA();
-    AppendixC();
+    //Concurrency06();
+    //Concurrency07();
+    //Concurrency08();
+    //Concurrency09(); 
+    //Concurrency10();
+    //Concurrency11();
+    //AppendixA();
+    //AppendixC();
 	return 0;
 }

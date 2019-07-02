@@ -160,6 +160,10 @@ AppendixC_receiver.hpp
 AppendixC_sender.hpp
 AppendixC_TemplateDispatcher.hpp
 AppendixC_main.cpp)
+SET(gConcurrency11 
+Concurrency11.h
+Concurrency11.01.cpp
+)
 
 SOURCE_GROUP(Concurrency01 FILES ${gConcurrency01})
 SOURCE_GROUP(Concurrency02 FILES ${gConcurrency02})
@@ -171,6 +175,7 @@ SOURCE_GROUP(Concurrency07 FILES ${gConcurrency07})
 SOURCE_GROUP(Concurrency08 FILES ${gConcurrency08})
 SOURCE_GROUP(Concurrency09 FILES ${gConcurrency09})
 SOURCE_GROUP(Concurrency10 FILES ${gConcurrency10})
+SOURCE_GROUP(Concurrency11 FILES ${gConcurrency11})
 SOURCE_GROUP(AppendixA FILES ${gAppendixA})
 SOURCE_GROUP(AppendixC FILES ${gAppendixC})
 
@@ -185,6 +190,7 @@ ${gConcurrency07}
 ${gConcurrency08}
 ${gConcurrency09}
 ${gConcurrency10}
+${gConcurrency11}
 ${gAppendixA}
 ${gAppendixC}
 ConcurrencyMain.cpp)

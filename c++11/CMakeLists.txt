@@ -126,10 +126,10 @@ add_executable(${proname15}
 	)
 
 # result_of error
-set(asio_path "D:/install/lib/boost_1_68_0/msvc141/include/boost-1_68")
+set(asio_path "D:/install/boost/boost_1_70_0/msvc141/include/boost-1_70")
 
 include_directories(${asio_path})
-LINK_DIRECTORIES("D:/install/lib/boost_1_68_0/msvc141/lib")
+LINK_DIRECTORIES("D:/install/boost/boost_1_70_0/msvc141/lib")
 add_executable(${proname14} linq/LinqCpp.hpp linq_test/linq_test.cpp)
 
 add_executable(${proname16}_client 

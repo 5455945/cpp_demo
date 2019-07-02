@@ -5,6 +5,62 @@
 // 依赖注入是敏捷架构的关键元素。将组件与其需要的服务分离，这样组件就不必知道这些服务的名称，也不必知道如何获取它们。
 // 依赖倒置，控制反转
 // 能够促进松耦合
+
+// 单例反模式
+// 代码9-1 以现代C++风格实现的Meyers的单例模式
+#ifndef SINGLETON_H_
+#define SINGLETON_H_
+
+class Singleton final {
+public:
+    // C++11之后，这种静态变量的构造实例的过程，默认是线程安全的；
+    // 构造过程线程安全，并不意味着其它成员函数是线程安全的。
+    static Singleton& getInstance() {
+        static Singleton theInstance;
+        return theInstance;
+    }
+
+    int doSomething() {
+        return 42;
+    }
+
+    // ...其它成员函数...
+
+private:
+    Singleton() = default;
+    Singleton(const Singleton&) = delete;
+    Singleton(Singleton&&) = delete;
+    Singleton& operator=(const Singleton&) = delete;
+    Singleton& operator=(Singleton&&) = delete;
+    // ...
+};
+#endif
+#include <iostream>
+void test09_01() {
+    std::cout << Singleton::getInstance().doSomething() << std::endl;
+}
+// 面向对象中单例的使用就像面向过程中全局变量的使用一样。
+// 更多的时候，单例并不是一种好的模式。
+
+//// 代码9-2 使用Singleton的任意类的实现摘要
+//#include "AnySingletonUser.h"
+//#include "Singleton.h"
+//#include <string>
+//// ...
+//void AnySingletonUser::aMemberFunction() {
+//    // ...
+//    std::string result = Singleton::getInstance().doThis();
+//    // ...
+//}
+//// ...
+//void AnySingletonUser::anotherMemberFunction() {
+//    // ...
+//    int result = Singleton::getInstance().doThat();
+//    // ...
+//    double value = Singleton::getInstance().doSomethongMore();
+//    // ...
+//}
+
 // 9.2.2 Adapter模式
 // 把一个类的接口转换为客户端期望的另一个接口。Adapter可以让因接口不兼容而无法一起工作的类一起工作。
 // 9.2.3 Strategy模式
@@ -23,11 +79,11 @@
 // 9.2.11 特例模式
 // 9.3 什么是习惯用法
 // Include Guard,Macro Guard, Header Guard
-#ifndef __FILENAME__H__
-#define __FILENAME__H__
-//...
-#endif __FILENAME__H__
-#pragma once
+//#ifndef __FILENAME__H__
+//#define __FILENAME__H__
+////...
+//#endif __FILENAME__H__
+//#pragma once
 // 一些习惯用法
 // 不可变的类
 // 匹配失败不是错误(SFINAE:Substitution Failure is not an Error)
@@ -35,3 +91,7 @@
 // Copy-and-Swap习惯用法
 // 指向实现的指针(Handle Body手法)：
 // 通过将内部类的实现细节重新定位到隐藏的实现类中，消除对实现的编译依赖，从而提高编译时间。
+
+void test09() {
+    test09_01();
+}

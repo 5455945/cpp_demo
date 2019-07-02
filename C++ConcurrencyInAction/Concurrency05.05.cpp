@@ -15,25 +15,33 @@ namespace {
     // 放松操作有极少数的排序要求
     std::atomic<bool> x, y;
     std::atomic<int> z;
+    std::atomic<bool> run_flag = false;
     void write_x_then_y()
     {
+        if (!run_flag.load()) {
+            std::this_thread::yield();
+        }
         x.store(true, std::memory_order_relaxed); // ①
         y.store(true, std::memory_order_relaxed); // ②
     }
     void read_y_then_x()
     {
+        if (!run_flag.load()) {
+            std::this_thread::yield();
+        }
         while (!y.load(std::memory_order_relaxed)); // ③
         if (x.load(std::memory_order_relaxed))      // ④
             ++z;
     }
 }
 void Concurrency05_05() {
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 10000; i++) {
         x = false;
         y = false;
         z = 0;
         std::thread a(write_x_then_y);
         std::thread b(read_y_then_x);
+        run_flag.store(true);
         a.join();
         b.join();
         assert(z.load() != 0); // ⑤
