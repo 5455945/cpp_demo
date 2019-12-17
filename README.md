@@ -9,3 +9,4 @@ example
 6. C++ConcurrencyInAction，c++并行编程的代码整理，可直接运行。
 7. OpenMP整理的一些blog上面的代码。在vs2019下运行测试过。
 8. MPI《基于MPI的大数据高性能计算导论》中涉及到的代码内容及其它。
+9. C++20新功能在vs2019的测试
