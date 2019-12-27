@@ -72,16 +72,16 @@ struct test {
     // member variables
     handle_type handle;
 };
-test<int> coroutine01()
+test<int> return_coroutine()
 {
-    std::cout << "start coroutine01\n";
+    std::cout << "start return_coroutine\n";
     co_return 1;
     co_return 2; // will never reach here
 }
 
 void co_vs_return()
 {
-    auto a = coroutine01();
+    auto a = return_coroutine();
     cout << "created a corutine, try to get a value\n";
     int an = a.get();
     cout << "value is " << an << endl;

@@ -65,7 +65,7 @@ struct test {
             return std::experimental::suspend_always{};
         }
 
-        void unhandled_exception() //exception handler
+        void unhandled_exception() // exception handler
         {
             std::exit(1);
         }
@@ -77,16 +77,16 @@ struct test {
     // member variables
     handle_type handle;
 };
-test coroutine01(int count)
+test yield_coroutine(int count)
 {
-    std::cout << "start coroutine01\n";
+    std::cout << "start yield_coroutine\n";
     for (int i = 0; i < count; i++)
         co_yield i * 2;
 }
 
 void co_vs_yield()
 {
-    auto a = coroutine01(4);
+    auto a = yield_coroutine(4);
     cout << "created a corutine, try to get a value\n";
     do
     {
