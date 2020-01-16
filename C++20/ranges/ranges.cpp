@@ -376,6 +376,32 @@ void range_test_15() {
     cout << '\n';
 }
 
+// https://segmentfault.com/a/1190000017818111
+void cpp_11() {
+    std::vector<int> v{ 1, 2, 3, 4, 5 };
+
+    std::vector<int> even;
+    std::copy_if(v.begin(), v.end(), std::back_inserter(even),
+        [](int i) { return i % 2 == 0; });
+
+    std::vector<int> results;
+    std::transform(even.begin(), even.end(),
+        std::back_inserter(results),
+        [](int i) { return i * 2; });
+
+    for (int n : results) std::cout << n << ' ';
+    std::cout << '\n';
+}
+void cpp_20() {
+    std::vector<int> v{ 1, 2, 3, 4, 5 };
+    auto v1 = v | views::filter([](int i) { return 0 == i % 2; })
+        | views::transform([](int i) { return i * 2; });
+    for (auto i : v1) {
+        cout << i << ' ';
+    }
+    cout << '\n';
+}
+
 int main()
 {
     range_test_01();
@@ -393,5 +419,8 @@ int main()
     range_test_13();
     range_test_14();
     range_test_15();
+
+    cpp_11();
+    cpp_20();
     return 0;
 }
