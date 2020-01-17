@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ranges", "ranges\ranges.vcx
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "span", "span\span.vcxproj", "{FF8EC26B-833F-495D-B147-DEFE3ED0BCFB}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "compare", "compare\compare.vcxproj", "{4F4CDEEF-860D-4E30-ADA5-5584487C640D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -61,6 +63,14 @@ Global
 		{FF8EC26B-833F-495D-B147-DEFE3ED0BCFB}.Release|x64.Build.0 = Release|x64
 		{FF8EC26B-833F-495D-B147-DEFE3ED0BCFB}.Release|x86.ActiveCfg = Release|Win32
 		{FF8EC26B-833F-495D-B147-DEFE3ED0BCFB}.Release|x86.Build.0 = Release|Win32
+		{4F4CDEEF-860D-4E30-ADA5-5584487C640D}.Debug|x64.ActiveCfg = Debug|x64
+		{4F4CDEEF-860D-4E30-ADA5-5584487C640D}.Debug|x64.Build.0 = Debug|x64
+		{4F4CDEEF-860D-4E30-ADA5-5584487C640D}.Debug|x86.ActiveCfg = Debug|Win32
+		{4F4CDEEF-860D-4E30-ADA5-5584487C640D}.Debug|x86.Build.0 = Debug|Win32
+		{4F4CDEEF-860D-4E30-ADA5-5584487C640D}.Release|x64.ActiveCfg = Release|x64
+		{4F4CDEEF-860D-4E30-ADA5-5584487C640D}.Release|x64.Build.0 = Release|x64
+		{4F4CDEEF-860D-4E30-ADA5-5584487C640D}.Release|x86.ActiveCfg = Release|Win32
+		{4F4CDEEF-860D-4E30-ADA5-5584487C640D}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
