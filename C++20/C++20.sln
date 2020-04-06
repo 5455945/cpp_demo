@@ -27,6 +27,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "source_location", "source_l
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "to_address", "to_address\to_address.vcxproj", "{DCB74C40-D745-489D-8D55-03F472985570}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "atomic_wait", "atomic_wait\atomic_wait.vcxproj", "{FBE5F066-9038-4D52-875A-1A4A59D4D07F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -131,6 +133,14 @@ Global
 		{DCB74C40-D745-489D-8D55-03F472985570}.Release|x64.Build.0 = Release|x64
 		{DCB74C40-D745-489D-8D55-03F472985570}.Release|x86.ActiveCfg = Release|Win32
 		{DCB74C40-D745-489D-8D55-03F472985570}.Release|x86.Build.0 = Release|Win32
+		{FBE5F066-9038-4D52-875A-1A4A59D4D07F}.Debug|x64.ActiveCfg = Debug|x64
+		{FBE5F066-9038-4D52-875A-1A4A59D4D07F}.Debug|x64.Build.0 = Debug|x64
+		{FBE5F066-9038-4D52-875A-1A4A59D4D07F}.Debug|x86.ActiveCfg = Debug|Win32
+		{FBE5F066-9038-4D52-875A-1A4A59D4D07F}.Debug|x86.Build.0 = Debug|Win32
+		{FBE5F066-9038-4D52-875A-1A4A59D4D07F}.Release|x64.ActiveCfg = Release|x64
+		{FBE5F066-9038-4D52-875A-1A4A59D4D07F}.Release|x64.Build.0 = Release|x64
+		{FBE5F066-9038-4D52-875A-1A4A59D4D07F}.Release|x86.ActiveCfg = Release|Win32
+		{FBE5F066-9038-4D52-875A-1A4A59D4D07F}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
