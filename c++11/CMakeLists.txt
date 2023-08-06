@@ -17,6 +17,7 @@ set(proname14 "c++11_demo14")
 set(proname15 "c++11_demo15")
 set(proname16 "c++11_demo16")
 set(proname17 "C++11_2013")
+set(proname18 "C++11_timer")
 
 project("C++11_demo")
 
@@ -153,6 +154,10 @@ add_executable(${proname17}
   C++11_0/C++11.06.h C++11_0/C++11.06.cpp
   C++11_0/C++11.07.h C++11_0/C++11.07.cpp
   C++11_0/C++11.main.cpp)
+
+add_executable(${proname18} 
+  timer/timer.hpp
+  timer/test.cc)
 
 
 if (WIN32)
