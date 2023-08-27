@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WebSocket Example</title>
+<script>
+// 1. 创建一个 WebSocket 对象
+let socket = new WebSocket("ws://127.0.0.1:8000/ws");
+
+// 2. 监听 WebSocket 连接事件
+socket.addEventListener("open", function (event) {
+  console.log("WebSocket connected:", event);
+});
+
+// 3. 监听 WebSocket 收到消息事件
+socket.addEventListener("message", function (event) {
+  console.log("WebSocket message received:", event.data);
+});
+
+// 4. 监听 WebSocket 关闭事件
+socket.addEventListener("close", function (event) {
+  console.log("WebSocket closed:", event);
+});
+
+// 5. 监听 WebSocket 出错事件
+socket.addEventListener("error", function (event) {
+  console.error("WebSocket error:", event);
+});
+
+// 主动向服务的发送消息
+function sendMessage() {
+  let message = document.getElementById("messageInput").value;
+  if (message) {
+    socket.send(message);
+  }
+}
+</script>
+</head>
+<body>
+    <h1>WebSocket Example</h1>
+    <input type="text" id="messageInput" placeholder="Type your message here...">
+    <button onclick="sendMessage()">Send</button>
+</body>
+</html>

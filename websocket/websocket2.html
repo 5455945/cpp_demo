@@ -1,0 +1,51 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>WebSocket Echo Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="../bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../js/jquery-1.12.3.min.js"></script>
+    <script src="../js/jquery-1.12.3.min.js"></script>
+    <script src="../bootstrap-3.3.5/js/bootstrap.min.js"></script>
+    <script>
+    var ws = new WebSocket("ws://127.0.0.1:8180");
+    ws.onopen = function(event) {
+       console.log("连接已打开...");
+       socket.send("Hello, WebSocket!");
+    };
+    ws.onmessage = function(event) {
+       console.log("收到消息：" + event.data);
+    };
+    ws.onerror = function(error) {
+       console.error("出现错误：" + error);
+    };
+    ws.onclose = function(event) {
+       console.log("连接已关闭：" + event.code);
+    };
+	
+    function sendMessage() {
+		let message = document.getElementById("message").value;
+		console.log(message);
+        ws.send(message);
+    }
+    </script>
+</head>
+
+<body >
+    <div class="vertical-center">
+        <div class="container">
+            <p>&nbsp;</p>
+            <form role="form" id="chat_form" onsubmit="sendMessage(); return false;">
+                <div class="form-group">
+                    <input class="form-control" type="text" name="message" id="message"
+                           placeholder="Type text to echo in here" value="" />
+                </div>
+                <button type="button" id="send" class="btn btn-primary"
+                        onclick="sendMessage();">
+                    Send!
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
