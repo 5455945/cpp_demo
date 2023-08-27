@@ -10,8 +10,20 @@
 // So no special handling is required anymore.
 // 
 // [属性]==>[C/C++]==>[语言]==>[生成 ISO C++23 标准库模块]=是
+// cl /std:c++latest /EHsc /nologo /W4 /MTd /c "%VCToolsInstallDir%\modules\std.ixx"
+// cl /std:c++latest /EHsc /nologo /W4 /MTd /c "%VCToolsInstallDir%\modules\std.ixx" "%VCToolsInstallDir%\modules\std.compat.ixx"
+// cl /std:c++latest /EHsc /nologo /W4 /MTd /c "%VCToolsInstallDir%\modules\std.ixx"
+// /ifcSearchDir[dir1;dir2;dir3]
+// /exportHeader
+// 启用 OpenMP 2.0 语言扩展。 设置 /openmp
+
 
 import std;
+//import std.core;
+//import std.filesystem;
+//import std.memory;
+//import std.regex;
+//import std.threading;
 
 void test02_08_01() {
     std::print("Hello standard library modules!\n");

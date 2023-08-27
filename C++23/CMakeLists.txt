@@ -79,23 +79,42 @@ add_executable(${proname02}
 #message(status, "%VCToolsInstallDir%\modules\std.ixx")
 #MESSAGE(STATUS "VCToolsInstallDir dir: $ENV{VSINSTALLDIR}")
 #MESSAGE(STATUS "VCToolsInstallDir dir: $ENV{LOCALAPPDATA}")
+#// <BuildStlModules>true</BuildStlModules>
+# enablemodules "yes"
+# buildstlmodules "yes"
+# enablemodules "no"
+# buildstlmodules "no"
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 if (WIN32)
   if(MSVC)
+    get_filename_component(vs_bin_path "${CMAKE_LINKER}" DIRECTORY)
+	message(status, "vs_bin_path:  ${vs_bin_path}")
     # 增加一些编译属性的方法
 	# add_compiler_options(/std:c++latest)
+	### add_compiler_options(COMPILE_FEATURES, buildstlmodules "yes")
+	###set(CMAKE_EXPERIMENTAL_CXX_MODULE_DYNDEP ON)
 	target_compile_options(${proname01} PRIVATE
 	    # 增加对c++最新标准的支持
 	    /std:c++latest
 		/std:c17
 		# 使用实验属性 module
 	    /experimental:module
+		/permissive-
 		# 消除两个警告
 		/wd4819
 		/wd4828
 		# fmt库文件需要utf-8格式
 		/utf-8
 	)
+    add_custom_command(TARGET ${proname01}
+	  PRE_BUILD
+	  COMMAND echo cl /std:c++latest /EHsc /nologo /W4 /MTd /c "${vs_bin_path}\\..\\..\\..\\modules\\std.ixx" "${vs_bin_path}\\..\\..\\..\\modules\\std.compat.ixx"
+	  COMMAND cl /std:c++latest /EHsc /nologo /W4 /MTd /c "${vs_bin_path}\\..\\..\\..\\modules\\std.ixx" "${vs_bin_path}\\..\\..\\..\\modules\\std.compat.ixx"
+	  #WORKING_DIRECTORY .
+      COMMENT "cl /std:c++latest /EHsc /nologo /W4 /MTd /c \"%VCToolsInstallDir%\\modules\\std.ixx\" \"%VCToolsInstallDir%\\modules\\std.compat.ixx\""
+    )
+
 	#set(CMAKE_CXX_STANDARD 23)
 	# Set the startup project .
 	if (NOT ${CMAKE_VERSION} VERSION_LESS "3.6.0")
@@ -107,6 +126,7 @@ if (WIN32)
 		/std:c17
 		# 使用实验属性 module
 	    /experimental:module
+		#/c
 		/permissive-
 		#/exportHeader
 		# 消除两个警告
@@ -114,7 +134,15 @@ if (WIN32)
 		/wd4828
 		# fmt库文件需要utf-8格式
 		/utf-8
+		#buildstlmodules:"yes"
 	)
+    add_custom_command(TARGET ${proname02}
+	  PRE_BUILD
+	  COMMAND echo cl /std:c++latest /EHsc /nologo /W4 /MTd /c "${vs_bin_path}\\..\\..\\..\\modules\\std.ixx" "${vs_bin_path}\\..\\..\\..\\modules\\std.compat.ixx"
+	  COMMAND cl /std:c++latest /EHsc /nologo /W4 /MTd /c "${vs_bin_path}\\..\\..\\..\\modules\\std.ixx" "${vs_bin_path}\\..\\..\\..\\modules\\std.compat.ixx"
+	  #WORKING_DIRECTORY .
+      COMMENT "cl /std:c++latest /EHsc /nologo /W4 /MTd /c \"%VCToolsInstallDir%\\modules\\std.ixx\" \"%VCToolsInstallDir%\\modules\\std.compat.ixx\""
+    )
   endif()
   # g++ 
   # SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-elide-constructors")
