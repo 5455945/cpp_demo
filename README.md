@@ -11,3 +11,4 @@ example
 08. MPI《基于MPI的大数据高性能计算导论》中涉及到的代码内容及其它。
 09. C++20新功能在vs2019的测试
 10. Websockets demo,libsockets c库demo，html5 websockets，nodejs websockets
+11. C++23 新功能在vs2022的测试
